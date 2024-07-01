@@ -17,11 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const tiltY = event.beta;  // Front-to-back tilt in degrees
 
         // Adjust the sensitivity if needed
-        const sensitivity = 0.81;
+        const sensitivity = 0.5;
 
         // Update ball position based on tilt
         ballX += tiltX * sensitivity;
         ballY += tiltY * sensitivity;
+
+        ballX = Math.max(0, Math.min(gameArea.clientWidth - ball.clientWidth, ballX));
+        ballY = Math.max(0, Math.min(gameArea.clientHeight - ball.clientHeight, ballY));
 
         updateBallPosition();
     }
