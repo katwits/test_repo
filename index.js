@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let ballX = gameArea.clientWidth / 2 - ball.clientWidth / 2;
     let ballY = gameArea.clientHeight / 2 - ball.clientHeight / 2;
+    console.log(ballX);
+    console.log(ballY);
 
     function updateBallPosition() {
         ball.style.left = `${ballX}px`;
@@ -13,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleOrientation(event) {
-        const tiltX = event.gamma; // Left-to-right tilt in degrees
-        const tiltY = event.beta;  // Front-to-back tilt in degrees
+        const tiltX = event.beta; // Left-to-right tilt in degrees
+        const tiltY = event.gamma;  // Front-to-back tilt in degrees
 
         // Adjust the sensitivity if needed
         const sensitivity = 0.5;
