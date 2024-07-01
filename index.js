@@ -37,6 +37,7 @@ function requestPermission() {
     DeviceOrientationEvent.requestPermission()
       .then((response) => {
         if (response === "granted") {
+          output.textContent = ''; // Clear any permission message
           window.addEventListener("deviceorientation", handleOrientation);
         } else {
           output.textContent = "Permission denied.";
@@ -48,6 +49,9 @@ function requestPermission() {
       });
   } else {
     output.textContent = "Device orientation not supported.";
+
+    // Fallback: Attempt to listen for device orientation without permission
+    window.addEventListener("deviceorientation", handleOrientation);
   }
 }
 
