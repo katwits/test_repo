@@ -8,21 +8,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let ballY = gameArea.clientHeight / 2 - ball.clientHeight / 2;
 
     function updateBallPosition() {
-        ball.style.left = '${ballX}px';
-        ball.style.top = '${ballY}px';
+        ball.style.left = `${ballX}px`;
+        ball.style.top = `${ballY}px`;
     }
 
     function handleOrientation(event) {
-        const tiltX = event.beta; // Left-to-right tilt in degrees
-        const tiltY = event.gamma;  // Front-to-back tilt in degrees
+        const tiltX = event.gamma; // Left-to-right tilt in degrees
+        const tiltY = event.beta;  // Front-to-back tilt in degrees
 
         // Adjust the sensitivity if needed
         const sensitivity = 0.5;
 
         // Update ball position based on tilt
         ballX += tiltX * sensitivity;
-        ballY += tiltY * sensitivity;
+        ballY -= tiltY * sensitivity; // Invert the movement for beta axis
 
+        // Keep the ball within the game area
         ballX = Math.max(0, Math.min(gameArea.clientWidth - ball.clientWidth, ballX));
         ballY = Math.max(0, Math.min(gameArea.clientHeight - ball.clientHeight, ballY));
 
