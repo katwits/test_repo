@@ -10,44 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
         ball.style.top = `${ballY}px`;
     }
 
-    function handleMotion(event) {
-        const accX = event.accelerationIncludingGravity.x;
-        const accY = event.accelerationIncludingGravity.y;
+    window.addEventListener('deviceorientation', (event) => {
+        const tiltX = event.gamma; // Left-to-right tilt in degrees
+        const tiltY = event.beta;  // Front-to-back tilt in degrees
 
         // Adjust the sensitivity if needed
-        const sensitivity = 0.5;
+        const sensitivity = 0.41;
 
-        // Update ball position based on accelerometer data
-        ballX -= accX * sensitivity;
-        ballY += accY * sensitivity;
+        // Update ball position based on tilt
+        ballX += tiltX * sensitivity;
+        ballY += tiltY * sensitivity;
 
         // Keep the ball within the game area
         ballX = Math.max(0, Math.min(gameArea.clientWidth - ball.clientWidth, ballX));
         ballY = Math.max(0, Math.min(gameArea.clientHeight - ball.clientHeight, ballY));
 
         updateBallPosition();
-    }
-
-    function requestMotionPermission() {
-        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-            // iOS 13+ device
-            DeviceMotionEvent.requestPermission()
-                .then(response => {
-                    if (response === 'granted') {
-                        window.addEventListener('devicemotion', handleMotion);
-                    } else {
-                        console.error('Device motion permission not granted');
-                    }
-                })
-                .catch(console.error);
-        } else {
-            // Non iOS 13+ device
-            window.addEventListener('devicemotion', handleMotion);
-        }
-    }
-
-    // Request permission for device motion
-    requestMotionPermission();
+    });
 
     updateBallPosition();
 });
