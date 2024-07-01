@@ -27,5 +27,27 @@ document.addEventListener('DOMContentLoaded', () => {
         updateBallPosition();
     });
 
+
+     function requestPermission() {
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission()
+                .then(response => {
+                    if (response === 'granted') {
+                        window.addEventListener('deviceorientation', handleOrientation);
+                        permissionOverlay.style.display = 'none'; // Hide the overlay after permission is granted
+                    } else {
+                        alert('Permission not granted.');
+                    }
+                })
+                .catch(console.error);
+        } else {
+            // For non-iOS devices
+            window.addEventListener('deviceorientation', handleOrientation);
+            permissionOverlay.style.display = 'none'; // Hide the overlay after setting up the listener
+        }
+    }
+
+    permissionButton.addEventListener('click', requestPermission);
+
     updateBallPosition();
 });
