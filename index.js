@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleOrientation(event) {
-        const tiltX = event.beta; // Left-to-right tilt in degrees
-        const tiltY = event.gamma;  // Front-to-back tilt in degrees
+        const tiltX = event.gamma; // Left-to-right tilt in degrees
+        const tiltY = event.beta;  // Front-to-back tilt in degrees
 
         // Adjust the sensitivity if needed
         const sensitivity = 0.5;
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ballX += tiltX * sensitivity;
         ballY += tiltY * sensitivity;
 
+        // Keep the ball within the game area
         ballX = Math.max(0, Math.min(gameArea.clientWidth - ball.clientWidth, ballX));
         ballY = Math.max(0, Math.min(gameArea.clientHeight - ball.clientHeight, ballY));
 
