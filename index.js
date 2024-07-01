@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ballX += tiltX * sensitivity;
         ballY += tiltY * sensitivity;
 
+        ballX = Math.max(0, Math.min(gameArea.clientWidth - ball.clientWidth, ballX));
+        ballY = Math.max(0, Math.min(gameArea.clientHeight - ball.clientHeight, ballY));
+
         updateBallPosition();
     });
 
