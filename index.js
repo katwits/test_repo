@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const ball = document.getElementById('ball');
     const gameArea = document.getElementById('gameArea');
-
+    const permissionOverlay = document.getElementById('permissionOverlay');
+    const permissionButton = document.getElementById('permissionButton');
     let ballX = gameArea.clientWidth / 2 - ball.clientWidth / 2;
     let ballY = gameArea.clientHeight / 2 - ball.clientHeight / 2;
 
