@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let ballY = gameArea.clientHeight / 2 - ball.clientHeight / 2;
 
     function updateBallPosition() {
-        ball.style.left = ${ballX}px;
-        ball.style.top = ${ballY}px;
+        ball.style.left = '${ballX}px';
+        ball.style.top = '${ballY}px';
     }
 
     function handleOrientation(event) {
