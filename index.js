@@ -54,5 +54,6 @@ function requestPermission() {
     window.addEventListener("deviceorientation", handleOrientation);
   }
 }
+const btn = document.getElementById( "request" );
+btn.addEventListener( "click", requestPermission );
 
-requestPermission();
