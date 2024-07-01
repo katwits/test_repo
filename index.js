@@ -2,8 +2,8 @@ const ball = document.querySelector(".ball");
 const garden = document.querySelector(".garden");
 const output = document.querySelector(".output");
 
-const maxX = garden.clientWidth - ball.clientWidth;
-const maxY = garden.clientHeight - ball.clientHeight;
+let maxX = garden.clientWidth - ball.clientWidth;
+let maxY = garden.clientHeight - ball.clientHeight;
 
 function handleOrientation(event) {
   let x = event.beta; // In degree in the range [-180,180)
@@ -32,4 +32,23 @@ function handleOrientation(event) {
   ball.style.top = `${(maxX * x) / 180 - 10}px`; // rotating device around the x axis moves the ball vertically
 }
 
-window.addEventListener("deviceorientation", handleOrientation);
+function requestPermission() {
+  if (typeof DeviceOrientationEvent.requestPermission === "function") {
+    DeviceOrientationEvent.requestPermission()
+      .then((response) => {
+        if (response === "granted") {
+          window.addEventListener("deviceorientation", handleOrientation);
+        } else {
+          output.textContent = "Permission denied.";
+        }
+      })
+      .catch((error) => {
+        console.error("Permission request error:", error);
+        output.textContent = "Permission request error.";
+      });
+  } else {
+    output.textContent = "Device orientation not supported.";
+  }
+}
+
+requestPermission();
