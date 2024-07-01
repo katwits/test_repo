@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameArea = document.getElementById('gameArea');
     const permissionOverlay = document.getElementById('permissionOverlay');
     const permissionButton = document.getElementById('permissionButton');
+
     let ballX = gameArea.clientWidth / 2 - ball.clientWidth / 2;
     let ballY = gameArea.clientHeight / 2 - ball.clientHeight / 2;
 
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ball.style.top = `${ballY}px`;
     }
 
-    window.addEventListener('deviceorientation', (event) => {
+    function handleOrientation(event) {
         const tiltX = event.gamma; // Left-to-right tilt in degrees
         const tiltY = event.beta;  // Front-to-back tilt in degrees
 
@@ -22,14 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ballX += tiltX * sensitivity;
         ballY += tiltY * sensitivity;
 
-        ballX = Math.max(0, Math.min(gameArea.clientWidth - ball.clientWidth, ballX));
-        ballY = Math.max(0, Math.min(gameArea.clientHeight - ball.clientHeight, ballY));
-
         updateBallPosition();
-    });
+    }
 
-
-     function requestPermission() {
+    function requestPermission() {
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(response => {
